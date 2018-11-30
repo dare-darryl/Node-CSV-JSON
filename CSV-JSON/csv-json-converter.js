@@ -6,6 +6,7 @@
  * 
  */
 
+ // Imports
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -14,6 +15,7 @@ const os = require('os');
 const convertCSVToJson = (fileRead = '.\\customer-data.csv', fileWrite = '.\\customer-data.json') => {
     console.log("[OPENING] ", fileRead);
 
+    // Read CSV to csvData
     let csvData;
     try {
         csvData = fs.readFileSync(fileRead, 'utf8', (error, data) => {
@@ -32,9 +34,11 @@ const convertCSVToJson = (fileRead = '.\\customer-data.csv', fileWrite = '.\\cus
 
     console.log("[Writing] ", fileWrite);
 
+    // Split csvData by Line, and then by commas
     let lines = csvData.split(os.EOL);
     let elemVars = lines[0].split(',');
 
+    // Form JSON manually
     let jsonOutput = '[';
 
     for (var i = 1; i < lines.length; i++) {
@@ -78,6 +82,7 @@ const convertCSVToJson = (fileRead = '.\\customer-data.csv', fileWrite = '.\\cus
         console.error('Malformed JSON!');
     }
 
+    // Write to JSON
     fs.writeFileSync(fileWrite, jsonOutput);
 }
 
